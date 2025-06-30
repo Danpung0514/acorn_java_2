@@ -36,11 +36,13 @@ public class MainClass12 {
 //		for(int num : set1) {
 //			System.out.println(num);
 //		}
-		set1.forEach(num->System.out.println(num)); // forEach 문
+		set1.forEach(num->System.out.print(num+" ")); // forEach 문
 		
 		// 5. AI 에 물어봐서 set1 에 담긴 내용을 List 에 담은 다음 오름차순 정렬 해보자.
-		List<Integer> sortedList = new ArrayList<>(set1);
+		List<Integer> sortedList = new ArrayList<>(set1); // Set 를 ArrayList 생성자에 직접 담으면 Array 에 담긴다
 		Collections.sort(sortedList);
+		
+		System.out.println(); // 직전 print()의 개행
 		
 		// 6. 오름차순 정렬된 번호를 하나씩 순서대로 콘솔창에 출력 해보자.
 		System.out.println("오름차순 정렬된 로또번호 입니다.");
