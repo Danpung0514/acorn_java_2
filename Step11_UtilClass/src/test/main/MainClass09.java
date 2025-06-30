@@ -62,8 +62,16 @@ public class MainClass09 {
 		
 		System.out.println("--------");
 		
-		// Iterator 를 사용하는 구조도 연습 해보자.
+		// Iterator 를 사용하는 구조도 연습 해보자. ( Set 의 generic 이 Iterator 의 generic 이 된다.)
 		Iterator<String> it=set2.iterator();
-		it.
+		/*
+		 *  무한 루프를 구성하거나 정확한 반복횟수를 알 수 없을 때 while(){} 문을 많이 사용한다.
+		 */
+		while(it.hasNext()) { // 다음 item 이 있는지 확인해서
+			// 다음 item 을 얻어낸다 (item 의 type 은 Iterator 의 Generic type 이다.)
+			String item=it.next();
+			// 얻어낸 item 을 사용하고 또 다음 item 이 있는지 위에서 확인이 된다.
+			System.out.println(item);
+		}
 	}
 }
