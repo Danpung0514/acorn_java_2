@@ -38,6 +38,10 @@ public class GamePanel extends JPanel{
 	int missileInterval = 300;  // 미사일 생성 간격 (ms)
 	long lastMissileTime;	// 미사일을 발사한 시간을 넣을 필드
 	
+	// 체력 게이지 구현
+	int life = 3; // 체력 (♥ 갯수)
+	boolean isGameOver = false; // 게임 오버 여부
+	
 	
 	// 생성자
 	public GamePanel() {
@@ -140,6 +144,7 @@ public class GamePanel extends JPanel{
 		g.setFont(new Font("Arial", Font.BOLD, 20));
 		g.drawString("Missile:"+missList.size(), 10, 20);
 		
+		
 		// 카운트다운 텍스트 표시
 		if (!countdownText.equals("")) {
 			g.setColor(Color.WHITE);
@@ -153,6 +158,17 @@ public class GamePanel extends JPanel{
 			int y = getHeight() / 2;
 
 			g.drawString(countdownText, x, y);
+		}
+		
+		// 체력 표시
+		if (!isGameOver) {
+			g.setColor(Color.RED);
+			g.setFont(new Font("Arial", Font.BOLD, 50));
+			StringBuilder hearts = new StringBuilder();
+			for (int i = 0; i < life; i++) {
+				hearts.append("♥");
+			}
+			g.drawString(hearts.toString(), 10, getHeight() - 20);  // 좌하단
 		}
 		
 		// 모든 미사일의 y 좌표를 감소 시켜서 미사일이 위로 이동 하도록 한다.
