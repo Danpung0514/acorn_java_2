@@ -72,14 +72,14 @@ public class GamePanel extends JPanel{
 		setPreferredSize(new Dimension(500, 800));
 		
 		// src/images/unit1.png 파일의 위치를 URL 객체로 얻어내기
-		URL url=getClass().getResource("/images/unit1.png");
+		URL url=getClass().getResource("/images/unit2.png");
 		
 		// src/images/unit1.png 파일을 로딩해서 Image 객체로 만들기
 		unitImage=new ImageIcon(url).getImage();  // [^1] 이곳에서 필드 내부 대입
 		// 배경 이미지
 		backImage=new ImageIcon(getClass().getResource("/images/backbg.png")).getImage();
 		// 미사일 이미지
-		missImage=new ImageIcon(getClass().getResource("/images/mi2.png")).getImage();
+		missImage=new ImageIcon(getClass().getResource("/images/missileWE.png")).getImage();
 		
 		
 		MouseMotionAdapter adapter=new MouseMotionAdapter() {
@@ -133,11 +133,11 @@ public class GamePanel extends JPanel{
 		for(int i=0; i<missList.size(); i++) {
 			//i번째 미사일 객체
 			Missile tmp=missList.get(i);
-			g.drawImage(missImage, tmp.getX()-15, tmp.getY()-20, 30, 40, this);
+			g.drawImage(missImage, tmp.getX()-9, tmp.getY()-20, 18, 64, this);
 		}
 		
 		// 메소드의 매개변수에 전달되는 Graphics 객체를 Panel 에 그림을 그릴 수 있는 도구이다.
-		g.drawImage(unitImage, unitX-50, unitY-50, 100, 100, this);
+		g.drawImage(unitImage, unitX-60, unitY-40, 120, 100, this);
 		
 		// 테스트로 미사일의 갯수 표시
 		g.setColor(Color.YELLOW);
