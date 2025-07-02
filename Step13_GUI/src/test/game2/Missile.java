@@ -1,5 +1,11 @@
 package test.game2;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Rectangle;
+
+import javax.swing.ImageIcon;
+
 public class Missile {
 	private int x;
 	private int y;
@@ -9,10 +15,11 @@ public class Missile {
 	public Missile() {}
 	
 	// 필드에 저장할 값을 생성자로 전달 받을 수 있는 생성자
-	public Missile(int x, int y) {
-		super();
+	public Missile(int x, int y, MissileType type) {
 		this.x=x;
 		this.y=y;
+		this.type = type;
+		this.speed = 10;
 	}
 	// 필드 접근 메소드 setter, getter
 

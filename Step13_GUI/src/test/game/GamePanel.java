@@ -20,7 +20,7 @@ import javax.swing.Timer;
 
 public class GamePanel extends JPanel{
 	// 필요한 필드 정의 (같은 type 이면 콤마(,)로 여러개 정의 할 수 있다
-	Image unitImage, backImage, missImage; // [^1] null로 비어있는 필드 생성 후
+	Image unitImage, backImage, missImage; 
 	// 드래곤의 좌표
 	int unitX=0;
 	int unitY=0;
@@ -28,7 +28,12 @@ public class GamePanel extends JPanel{
 	int back1Y=0, back2Y=-800;
 	// Missile 객체를 누적시킬 ArrayList 객체
 	List<Missile> missList=new ArrayList<>();
-	
+	// 드래곤 Image 객체를 저장할 방 2개짜리 배열 객체 미리 준비
+	Image[] unitImgs=new Image[2];
+	// 드래곤 이미지 인덱스
+	int unitIndex;
+	// 메소드 호출횟수를 누적할 필드
+	int count;
 	
 	// 생성자
 	public GamePanel() {
@@ -37,15 +42,14 @@ public class GamePanel extends JPanel{
 		// Panel 의 크기 설정 width:500, height:800
 		setPreferredSize(new Dimension(500, 800));
 		
-		// src/images/unit1.png 파일의 위치를 URL 객체로 얻어내기
-		URL url=getClass().getResource("/images/unit1.png");
+		// 드래곤 이미지 2개를
+		unitImgs[0] = new ImageIcon(getClass().getResource("/images/unit1.png")).getImage();
+		unitImgs[1] = new ImageIcon(getClass().getResource("/images/unit2.png")).getImage();
 		
-		// src/images/unit1.png 파일을 로딩해서 Image 객체로 만들기
-		unitImage=new ImageIcon(url).getImage();  // [^1] 이곳에서 필드 내부 대입
 		// 배경 이미지
 		backImage=new ImageIcon(getClass().getResource("/images/backbg.png")).getImage();
 		// 미사일 이미지
-		missImage=new ImageIcon(getClass().getResource("/images/mi2.png")).getImage();
+		missImage=new ImageIcon(getClass().getResource("/images/missileST.png")).getImage();
 		
 		
 		MouseMotionAdapter adapter=new MouseMotionAdapter() {
@@ -94,6 +98,9 @@ public class GamePanel extends JPanel{
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		// 메소드 호출 카운트 증가
+		count++;
+		
 		// 배경이미지 그리기
 		g.drawImage(backImage, 0, back1Y, 500, 800, this);
 		g.drawImage(backImage, 0, back2Y, 500, 800, this);
@@ -105,12 +112,25 @@ public class GamePanel extends JPanel{
 		}
 		
 		// 메소드의 매개변수에 전달되는 Graphics 객체를 Panel 에 그림을 그릴 수 있는 도구이다.
-		g.drawImage(unitImage, unitX-50, unitY-50, 100, 100, this);
+		g.drawImage(unitImgs[unitIndex], unitX-50, unitY-50, 100, 100, this);
 		
 		// 테스트로 미사일의 갯수 표시
 		g.setColor(Color.YELLOW);
 		g.setFont(new Font("Arial", Font.BOLD, 20));
-		g.drawString("Missile:"+missList.size(), 10, 20);
+		g.drawString("Count:"+count, 10, 20);
+		
+		if(count%5 == 0) {
+			unitIndex++;
+			// 만일 존재하지 않는 인덱스라면
+			if(unitIndex == 2) {
+				//인덱스를 다시 0으로 변경한다.
+				unitIndex=0;
+			}
+		}
+		
+		// 드래곤 unitIndex 1 증가
+//		unitIndex++;
+		
 		
 		// 모든 미사일의 y 좌표를 감소 시켜서 미사일이 위로 이동 하도록 한다.
 		for(Missile tmp : missList) {
