@@ -1,5 +1,11 @@
 package test.game2;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+
 public class Player extends Character{
 	// 레벨 관련
 	private int level;			// 현재 레벨
@@ -19,8 +25,14 @@ public class Player extends Character{
 	private boolean isUsingUltimate;	// 필살기 사용 중 여부
 	private long ultimateEndTime;		// 필살기 종료 시각
 	
+	// 미사일 이미지 생성 필드
+	private Image image;
+	private ArrayList<Missile> missiles;
+	
 	// 생성자
 	public Player() {
+		super(100, 400, 3);
+		
 		this.level = 1;
 		this.exp = 0;
 		this.expToLevelUp = 10;
@@ -33,5 +45,26 @@ public class Player extends Character{
 		
 		this.isUsingUltimate = false;
 		this.ultimateEndTime = 0;
+		
+		// 이미지 로드
+		this.image = new ImageIcon(getClass().getResource("/images/unit2.png")).getImage();
+		
+		// 미사일 List 초기화
+		this.missiles = new ArrayList<>();
+	}
+	
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		g.drawImage(image, x, y, null);
+		for (Missile m : missiles) {
+			m.draw(g);
+		}
+		
 	}
 }
